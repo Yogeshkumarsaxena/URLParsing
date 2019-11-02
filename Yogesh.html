@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<form id="myForm"  onsubmit="event.preventDefault(); return showValue()" >
+		<label for="name">Enter Here</label>
+		<input id="searchThis" type="text" name="name">
+		<br>
+		<input type="submit" value="submit">
+	</form>
+
+	<script type="text/javascript">
+
+		function showValue(){
+			let url = window.location.href;
+			// console.log(url)
+			let paramObj = parseURLParams(url);
+			// console.log(paramObj)
+			let searchString =  document.getElementById("searchThis").value
+			// console.log(searchString)
+			if(searchString === ""){
+				alert("Please enter something...")
+			}
+			else{
+				if(paramObj.hasOwnProperty(searchString)){
+					alert(paramObj[searchString])
+				}
+				else{
+					alert("This key does not exist")
+				}
+			}
+			
+		}
+
+
+		function parseURLParams(url) {
+   			var queryStart = url.indexOf("?") + 1,
+        	queryEnd   = url.indexOf("#") + 1 || url.length + 1,
+        	query = url.slice(queryStart, queryEnd - 1),
+        	pairs = query.replace(/\+/g, " ").split("&"),
+        	parms = {}, i, n, v, nv;
+
+   			 if (query === url || query === "") return;
+
+		    for (i = 0; i < pairs.length; i++) {
+		        nv = pairs[i].split("=", 2);
+		        n = decodeURIComponent(nv[0]);
+		        v = decodeURIComponent(nv[1]);
+
+        if (!parms.hasOwnProperty(n)) parms[n] = [];
+        parms[n].push(nv.length === 2 ? v : null);
+    }
+    return parms;
+}
+
+
+
+	</script>
+</body>
+</html>
